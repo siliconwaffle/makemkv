@@ -1,0 +1,33 @@
+#!/bin/bash
+set -e
+ver="$(printf "$@" | grep -o "[0-9.]*" | head -1)"
+printf "Verifying makemkv-$ver tarballs...\n"
+if ! [ -f ~/rpmbuild/SOURCES/makemkv.keyring ]; then
+	# Requires gnupg2 & distribution-gpg-keys >= 1.102
+	gpg2 --import --import-options import-export,import-minimal /usr/share/distribution-gpg-keys/makemkv/makemkv_pub.txt > ~/rpmbuild/SOURCES/makemkv.keyring
+fi
+if ! [ -f ~/rpmbuild/SOURCES/makemkv-sha-$ver.txt ]; then
+	curl --tlsv1.3 --proto =https --progress-bar -Lo ~/rpmbuild/SOURCES/makemkv-sha-$ver.txt "https://makemkv.com/download/makemkv-sha-$ver.txt"
+	if ! file ~/rpmbuild/SOURCES/makemkv-sha-$ver.txt | grep -q 'PGP signed message'; then
+		printf "makemkv-sha-$ver.txt file download failed. Please check the version you entered is correct and try again.\n"
+		exit 2
+	fi
+fi
+if ! [ -f ~/rpmbuild/SOURCES/makemkv-bin-$ver.tar.gz ]; then
+	curl --tlsv1.3 --proto =https --progress-bar -Lo ~/rpmbuild/SOURCES/makemkv-bin-$ver.tar.gz "https://www.makemkv.com/download/makemkv-bin-$ver.tar.gz"
+	if ! file ~/rpmbuild/SOURCES/makemkv-bin-$ver.tar.gz | grep -q 'gzip compressed data'; then
+		printf "makemkv-bin-$ver.tar.gz file download failed. Please check the version you entered is correct and try again.\n"
+		exit 2
+	fi
+fi
+if ! [ -f ~/rpmbuild/SOURCES/makemkv-oss-$ver.tar.gz ]; then
+	curl --tlsv1.3 --proto =https --progress-bar -Lo ~/rpmbuild/SOURCES/makemkv-oss-$ver.tar.gz "https://www.makemkv.com/download/makemkv-oss-$ver.tar.gz"
+	if ! file ~/rpmbuild/SOURCES/makemkv-oss-$ver.tar.gz | grep -q 'gzip compressed data'; then
+		printf "makemkv-oss-$ver.tar.gz file download failed. Please check the version you entered is correct and try again.\n"
+		exit 2 
+	fi
+fi
+cd ~/rpmbuild/SOURCES
+gpgv --keyring ./makemkv.keyring makemkv-sha-1.17.6.txt
+sha256sum -c --ignore-missing makemkv-sha-$ver.txt
+printf "Your makemkv-$ver tarballs have been successfully verified!\n"
