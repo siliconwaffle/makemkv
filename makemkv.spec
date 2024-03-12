@@ -34,7 +34,6 @@ MakeMKV is your one-click solution to convert video that you own into free and p
 
 Additionally MakeMKV can instantly stream decrypted video without intermediate conversion to wide range of players, so you may watch Blu-ray and DVD discs with your favorite player on your favorite OS or on your favorite device.
 
-
 %package libs
 Summary:        Libraries required by MakeMKV
 Suggests:       ffmpeg-libs
@@ -54,7 +53,6 @@ This package contains MakeMKV cli tools
 %autosetup -b 0 -n %{name}-bin-%{version}
 %autosetup -b 1 -n %{name}-oss-%{version}
 
-
 %build
 cd %{_builddir}/%{name}-oss-%{version}
 %configure
@@ -64,7 +62,6 @@ mkdir tmp
 echo accepted > tmp/eula_accepted
 %make_build
 
-
 %install
 cd %{_builddir}/%{name}-oss-%{version}
 %make_install
@@ -73,9 +70,6 @@ cd ../%{name}-bin-%{version}
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
-
-%clean
-rm -fr %{_builddir}
 
 %files
 %license License.txt
