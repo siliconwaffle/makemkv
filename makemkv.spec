@@ -9,6 +9,7 @@ License:        GuinpinSoft Inc EULA AND LGPL-2.1-or-later
 URL:            https://www.makemkv.com
 Source0:        %{url}/download/%{name}-bin-%{version}.tar.gz
 Source1:        %{url}/download/%{name}-oss-%{version}.tar.gz
+Patch0:         %{name}-libs-perms.patch
 
 BuildRequires:  coreutils
 BuildRequires:  desktop-file-utils
@@ -23,8 +24,6 @@ BuildRequires:  pkgconfig(libavcodec)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(Qt5)
 BuildRequires:  pkgconfig(zlib)
-Requires:       glibc
-Requires:       libgcc
 Requires:       makemkvcon = %{version}
 Requires:       qt5-qtbase-gui
 Recommends:     jre-1.8.0
