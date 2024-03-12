@@ -25,8 +25,7 @@ BuildRequires:  pkgconfig(Qt5)
 BuildRequires:  pkgconfig(zlib)
 Requires:       glibc
 Requires:       libgcc
-Requires:       makemkvcon
-Requires:       qt5-qtbase
+Requires:       makemkvcon = %{version}
 Requires:       qt5-qtbase-gui
 Recommends:     jre-1.8.0
 
@@ -46,7 +45,7 @@ This package contains libraries for MakeMKV
 %package -n makemkvcon
 Summary:        MakeMKV cli
 Requires:       /usr/bin/ffmpeg
-Requires:       makemkv-libs
+Requires:       makemkv-libs = %{version}
 
 %description -n makemkvcon
 This package contains MakeMKV cli tools
@@ -107,5 +106,5 @@ rm -fr %{_builddir}
 %{_datadir}/MakeMKV/blues.policy
 
 %changelog
-* Mon Mar 11 2024 Trilby Project Release <siliconwaffle@trilbyproject.org> - 1.17.6-1
+* Tue Mar 12 2024 Trilby Project Release <siliconwaffle@trilbyproject.org> - 1.17.6-1
 - Initial RPM Release
