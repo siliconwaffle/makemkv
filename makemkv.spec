@@ -9,7 +9,6 @@ License:        GuinpinSoft Inc EULA AND LGPL-2.1-or-later
 URL:            https://www.makemkv.com
 Source0:        %{url}/download/%{name}-bin-%{version}.tar.gz
 Source1:        %{url}/download/%{name}-oss-%{version}.tar.gz
-Patch0:         %{name}-libs-perms.patch
 
 BuildRequires:  coreutils
 BuildRequires:  desktop-file-utils
